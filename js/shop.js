@@ -103,7 +103,37 @@ function calculateTotal() {
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+    cart = [];
+    let valor;
+    let encontrado = false;
+    for(n=0; n < cartList.length; n++)
+    {
+        encontrado = false;
+        for(i=0; i < cart.length; i++)
+        {
+            if(cartList[n]==cart[i].id&&!encontrado)
+            {
+                console.log("encontrado:"+cart[i].id);
+                // Encontrado Sumamos cantidad
+                encontrado = true;
+                cart[i].quantity ++;
+            } 
+        }
+        if(!encontrado)
+        {
+            valor = {
+                'id': products[cartList[n]-1].id,
+                'name': products[cartList[n]-1].name,
+                'price': products[cartList[n]-1].price,
+                'type': products[cartList[n]-1].type,
+                'quantity': 1,
+            };
+            cart.push(valor);
+        }
+    }
+    console.log(cart);
 }
+
 
 // Exercise 5
 function applyPromotionsCart() {
