@@ -75,6 +75,9 @@ var total = 0;
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
+    // Ejercicio 8
+    addToCart(id);
+    /*
     for(n=0; n< products.length; n++)
     {
         if(id==products[n].id) cartList.push(id);
@@ -82,12 +85,16 @@ function buy(id) {
     let elementosDiferentes = new Set(cartList);
     document.getElementById("count_product").innerHTML = elementosDiferentes.size;
     console.log(cartList);
+    */
 }
 
 // Exercise 2
 function cleanCart() {
-    cartList = [];
+    //cartList = []; Modificado Ejercicio 8
+    cart = [];
     document.getElementById("count_product").innerHTML = 0;
+    document.getElementById("total_price").innerHTML = 0;
+    noVisibleCarrito();
     console.log(cartList);
 }
 
@@ -160,20 +167,38 @@ function applyPromotionsCart() {
         } 
     }
 }
+function visibleCarrito()
+{
+    document.getElementById("vacio").style.display = "none";
+    document.getElementById("lleno").style.display = "block";
+}
+function noVisibleCarrito()
+{
+    document.getElementById("vacio").style.display = "block";
+    document.getElementById("lleno").style.display = "none";
+}
 
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
-    generateCart();
+    //generateCart(); Modificado Ejercicio 8
     let carrito = '';
     let total = 0;
-    for(i=0; i < cart.length; i++)
+    if(cart.length==0) // Si esta vacío
     {
-        carrito += '<tr><th scope="row">'+cart[i].name+'</th><td>$'+cart[i].price+'</td><td>'+cart[i].quantity+'</td><td>$'+cart[i].subtotal+'</td></tr><tr>';
-        total += cart[i].subtotal;
+        noVisibleCarrito();
     }
-    document.getElementById("cart_list").innerHTML = carrito;
-    document.getElementById("total_price").innerHTML = total;
+    else
+    {
+        visibleCarrito();
+        for(i=0; i < cart.length; i++)
+        {
+            carrito += '<tr><th scope="row">'+cart[i].name+'</th><td>$'+cart[i].price+'</td><td>'+cart[i].quantity+'</td><td>$'+cart[i].subtotal+'</td></tr>';
+            total += cart[i].subtotal;
+        }
+        document.getElementById("cart_list").innerHTML = carrito;
+        document.getElementById("total_price").innerHTML = total;
+    }
 }
 
 
@@ -184,6 +209,33 @@ function addToCart(id) {
     // Refactor previous code in order to simplify it 
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+    encontrado = false;
+    for(i=0; i < cart.length; i++)
+    {
+        if(id==cart[i].id&&!encontrado)
+        {
+            console.log("encontrado:"+cart[i].id);
+            // Encontrado Sumamos cantidad
+            encontrado = true;
+            cart[i].quantity ++;
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
+        } 
+    }
+    if(!encontrado)
+    {
+        valor = {
+            'id': products[id-1].id,
+            'name': products[id-1].name,
+            'price': products[id-1].price,
+            'type': products[id-1].type,
+            'quantity': 1,
+            'subtotal': products[id-1].price,
+        };
+        cart.push(valor);
+    }
+    document.getElementById("count_product").innerHTML = cart.length;
+    applyPromotionsCart();
+    console.log(cart);
 }
 
 // Exercise 8

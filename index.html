@@ -227,19 +227,26 @@
 			  </div>
 			  <div class="modal-body">
 				  <h3 class="text-center bill px-5">Shopping Cart</h3>
-				  <table class="table">
-					<thead>
-						<tr>
-						  <th scope="col">Product</th>
-						  <th scope="col">Price</th>
-						  <th scope="col">Qty.</th>
-						  <th scope="col">Total <small>(with discount)</small></th>
-						</tr>
-					  </thead>
-					  <tbody id="cart_list">
-					<!-- Productos carrito -->
-					  </tbody>
-				  </table>
+				  <div id="lleno">
+					<table class="table">
+						<thead>
+							<tr>
+							<th scope="col">Product</th>
+							<th scope="col">Price</th>
+							<th scope="col">Qty.</th>
+							<th scope="col">Total <small>(with discount)</small></th>
+							</tr>
+						</thead>
+						<tbody id="cart_list">
+						<!-- Productos carrito -->
+						</tbody>
+					</table>
+				</div>
+				<div id="vacio">
+					<table class="table">
+						<h2 class="text-center bg-primary text-white p-2">Sin productos</h2>
+					</table>
+				</div>
 				  <div class="text-center fs-3">
 					Total: $<span id="total_price">0</span>
 				  </div>
