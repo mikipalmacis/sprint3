@@ -187,13 +187,14 @@ function printCart() {
     if(cart.length==0) // Si esta vacío
     {
         noVisibleCarrito();
+        document.getElementById("total_price").innerHTML = 0;
     }
     else
     {
         visibleCarrito();
         for(i=0; i < cart.length; i++)
         {
-            carrito += '<tr><th scope="row">'+cart[i].name+'</th><td>$'+cart[i].price+'</td><td>'+cart[i].quantity+'</td><td>$'+cart[i].subtotal+'</td></tr>';
+            carrito += '<tr><th scope="row">'+cart[i].name+'</th><td>$'+cart[i].price+'</td><td>'+cart[i].quantity+'</td><td>$'+cart[i].subtotal+'</td><td><button class="btn btn-sm btn-primary" onclick="removeFromCart('+cart[i].id+')">-</button></td></tr>';
             total += cart[i].subtotal;
         }
         document.getElementById("cart_list").innerHTML = carrito;
@@ -242,6 +243,24 @@ function addToCart(id) {
 function removeFromCart(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
+    console.log("entro: "+id);
+    encontrado = false;
+    for(i=0; i < cart.length; i++)
+    {
+        if(id==cart[i].id&&!encontrado)
+        {
+            console.log("encontrado:"+cart[i].id);
+            // Encontrado Sumamos cantidad
+            encontrado = true;
+            cart[i].quantity --;
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
+            if(cart[i].quantity==0) cart.splice(i, 1);
+        }
+    }
+    document.getElementById("count_product").innerHTML = cart.length;
+    applyPromotionsCart();
+    printCart();
+    console.log(cart);
 }
 
 function open_modal(){
