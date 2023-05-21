@@ -117,6 +117,7 @@ function generateCart() {
                 // Encontrado Sumamos cantidad
                 encontrado = true;
                 cart[i].quantity ++;
+                cart[i].subtotal = cart[i].quantity * cart[i].price;
             } 
         }
         if(!encontrado)
@@ -127,10 +128,12 @@ function generateCart() {
                 'price': products[cartList[n]-1].price,
                 'type': products[cartList[n]-1].type,
                 'quantity': 1,
+                'subtotal': products[cartList[n]-1].price,
             };
             cart.push(valor);
         }
     }
+    applyPromotionsCart();
     console.log(cart);
 }
 
@@ -138,6 +141,21 @@ function generateCart() {
 // Exercise 5
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
+    for(i=0; i < cart.length; i++)
+    {
+        if(cart[i].id==1&&cart[i].quantity>=3)
+        {
+            // Aplicamos promoción aceite
+            cart[i].price = 10;
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
+        }
+        if(cart[i].id==3&&cart[i].quantity>=10)
+        {
+            // Aplicamos promoción pasteles
+            cart[i].price = ((2/3) * cart[i].price).toFixed(2);
+            cart[i].subtotal = (cart[i].quantity * cart[i].price).toFixed(2);
+        } 
+    }
 }
 
 // Exercise 6
