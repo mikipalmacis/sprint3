@@ -79,12 +79,15 @@ function buy(id) {
     {
         if(id==products[n].id) cartList.push(id);
     }
+    let elementosDiferentes = new Set(cartList);
+    document.getElementById("count_product").innerHTML = elementosDiferentes.size;
     console.log(cartList);
 }
 
 // Exercise 2
 function cleanCart() {
     cartList = [];
+    document.getElementById("count_product").innerHTML = 0;
     console.log(cartList);
 }
 
