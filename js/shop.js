@@ -161,6 +161,16 @@ function applyPromotionsCart() {
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+    generateCart();
+    let carrito = '';
+    let total = 0;
+    for(i=0; i < cart.length; i++)
+    {
+        carrito += '<tr><th scope="row">'+cart[i].name+'</th><td>$'+cart[i].price+'</td><td>'+cart[i].quantity+'</td><td>$'+cart[i].subtotal+'</td></tr><tr>';
+        total += cart[i].subtotal;
+    }
+    document.getElementById("cart_list").innerHTML = carrito;
+    document.getElementById("total_price").innerHTML = total;
 }
 
 
