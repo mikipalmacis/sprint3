@@ -153,17 +153,33 @@ function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
     for(i=0; i < cart.length; i++)
     {
-        if(cart[i].id==1&&cart[i].quantity>=3)
+        if(cart[i].id==1)
         {
-            // Aplicamos promoción aceite
-            cart[i].price = 10;
+            if(cart[i].quantity>=3)
+            {
+                // Aplicamos promoción aceite
+                cart[i].price = 10;
+            }
+            else
+            {
+                // Aplicamos precio normal en aceite
+                cart[i].price = 10.5;
+            }
             cart[i].subtotal = cart[i].quantity * cart[i].price;
         }
-        if(cart[i].id==3&&cart[i].quantity>=10)
+        if(cart[i].id==3)
         {
-            // Aplicamos promoción pasteles
-            cart[i].price = ((2/3) * cart[i].price).toFixed(2);
-            cart[i].subtotal = (cart[i].quantity * cart[i].price).toFixed(2);
+            if(cart[i].quantity>=10)
+            {
+                // Aplicamos promoción pasteles
+                cart[i].price = ((2/3) * 5).toFixed(2);
+            }
+            else
+            {
+                // Quitamos promoción pasteles
+                cart[i].price = 5;
+            }
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
         } 
     }
 }
